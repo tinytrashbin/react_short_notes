@@ -404,31 +404,31 @@ React.useEffect(() => {
 ```JSX
 
 function Example3(props) {
-  const state = useDictState({
-    name: "Default-Name",
-    counter: 1
-  })
+  const [name, setName] = React.useState("")
+  const [count, setCount] = React.useState(0)
+
   var increment = function() {
-    state.set("counter", state.get("counter") + 1)
+    setCount(count + 1)
   }
+
   // this console.log will be there every time state is changed.. For
   // example when button is clicked.
-  console.log("Inside Example3 " + state.get("counter"))
+  console.log("Inside Example3 " + count)
 
   React.useEffect(() => {
     // this console.log will be there exactly once.
     console.log("Inside React.useEffect")
     // This API takes 5 seconds to respond.
-    api("/sleep_for_5_seconds_and_return_name", {}, function(d) {
-      state.set('name', d.name)
+    api("/sleep_for_5_seconds_and_return_name", {}, function(backend_output) {
+      setName(backend_output.name)
     })
   }, [])
 
   return (
     <div>
-      <h2>Name = {state.get("name")}</h2>
+      <h2>Name = {name}</h2>
       <div>This API takes 5 seconds to respond. After 5 seconds name will be changed.</div>
-      <div style={{fontSize: "20px"}} >Counter Value = {state.get("counter")}</div>
+      <div style={{fontSize: "20px"}} >Counter Value = {count}</div>
       <div>
         <button onClick={increment} >Click to Increase Counter</button>
       </div>
@@ -746,10 +746,6 @@ To display other type of variables (example - boolean, or list/dict) inside HTML
 <div>List = {JSON.stringify(list)}</div>
 ```
 
-### Try It
-
-[Try Simple JSX code here](https://tinytrashbin.github.io/react_and_angularjs_short_notes/try_it/index.html).
-
 ### 15). React Router
 
 React Router is useful for connecting URLs with different components.
@@ -973,15 +969,19 @@ console.log(a, b);
 
 Non-Atomic objects in JavaScript are actually referenced to the actual storage. If we assign a variable to some other variable, we are really copying the reference by default, not the value. To copy content of a list or dict, we must use spread-operator.
 
-`a = [1, 2, 4];`
-`b = a;`
-`b.push(5);`
+```JSX
+a = [1, 2, 4];
+b = a;
+b.push(5);
+```
 
 Now, the value of `b` is  [1, 2, 4, 5] and the value of `a` is also `[1, 2, 4, 5]`, because `b` and `a` share the same reference. Which means the `b = a;` statement doesn’t copy the list.
 
-`a = [1, 2, 4]`
-`b = [...a]`
-`b.push(5)`
+```JSX
+a = [1, 2, 4]
+b = [...a]
+b.push(5)
+```
 
 Now the value of `b` is `[1, 2, 4, 5]` but the value of `a` is still `[1, 2, 4]` because `a` and `b` are not sharing the same reference.
 
@@ -990,3 +990,11 @@ As a result, when `5` is inserted into `b`, the content of `a` doesn’t change.
 
 What is deep-copy - This is generally not used in JS and not encouraged because of performance overhead.
 
+
+## Try Simple React Code Here
+
+[Try Simple React code here](https://tinytrashbin.github.io/react_and_angularjs_short_notes/try_it/index.html).
+
+Simple JSX / JavaScript code can be tried out in browser console.
+
+For trying out more complex stuff, it is better idea to install node.js and clone the [sample repo](https://github.com/tinytrashbin/react_app_with_flask_backend)
