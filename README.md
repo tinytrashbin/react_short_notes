@@ -695,7 +695,7 @@ Example:
 #### 3). Only One Top Level Element.
 
 Alternatively `<>`, `</>` can be used
-   for avoiding unnecessary tags.
+   for avoiding unnecessary tags. This is called React Fragment.
 
 Example:
 
@@ -891,7 +891,6 @@ l.splice(3, 0, 100, 1000, 10000)
 // i.e. the values 100, 1000, 10000 are inserted at index-3.
 ```
 
-
 ### list.map and list.filter
 
 
@@ -989,6 +988,47 @@ Which means `b = [...a]` is copying the content of `a` into a new list and assig
 As a result, when `5` is inserted into `b`, the content of `a` doesn’t change. This is called shallow-copying.
 
 What is deep-copy - This is generally not used in JS and not encouraged because of performance overhead.
+
+### concat list (add two lists)
+
+```JSX
+const list1 = [1, 2, 3]
+const list2 = [10, 20, 30]
+const new_list = [...list1, ...list2]
+// Output of new_list would be [1, 2, 3, 10, 20, 30]
+```
+
+### Append / Add an item to a list
+
+```JSX
+const list1 = [1, 2, 3]
+const new_list = [...list1, 10]
+// Output of new_list would be [1, 2, 3, 10]
+```
+
+```JSX
+const list1 = [{a: 1}, {a: 2}, {a: 3}]
+const new_list = [...list1, {a: 10}]
+// Output of new_list would be [{a: 1}, {a: 2}, {a: 3}, {a: 10}]
+
+const x = {a: 100}
+const new_list2 = [...list1, x]
+// Output of new_list2 would be [{a: 1}, {a: 2}, {a: 3}, {a: 100}]
+
+const y = 1000
+const new_list3 = [...list1, y]
+// Output of new_list3 would be [{a: 1}, {a: 2}, {a: 3}, 1000]
+```
+
+Prepend an item to a list:
+
+i.e. Add an item at the starting of the list:
+
+```JSX
+const list1 = [1, 2, 3]
+const new_list = [10, ...list1]
+// Output of new_list would be [10, 1, 2, 3]
+```
 
 
 ## Try Simple React Code Here
